@@ -13,7 +13,7 @@ class CreateUser(APIView):
 
         if serializer.is_valid():
             if User.objects.filter(
-                email=serializer.validated_data.get('email')
+                username=serializer.validated_data.get('email')
             ).first():
                 return Response(
                     {'error': 'This email is already taken'},
@@ -25,7 +25,7 @@ class CreateUser(APIView):
             try:
                 validate_password(password)
                 user = User.objects.create_user(
-                    email=email, password=password, is_active=False
+                    username=email, email=email, password=password, is_active=False
                 )
 
                 return Response(
